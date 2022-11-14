@@ -1,10 +1,13 @@
 import React, {Component} from 'react'
+import { ReactDOM } from 'react';
 import './App.css';
 import Login from './Components/Login';
 import User from './Components/User';
 
 class App extends Component {
   state = {
+    activeUser: {},
+    login: false,
     users: [
       {
         name: "Max",
@@ -19,58 +22,38 @@ class App extends Component {
     ],
   }
 
-  auth = (userName,pass) => {
-    this.state.users.map((index,user) => {
-      if(user === userName) {
-        if(pass === this.state.users[index].password){
-         //Login 
-          console.log("Авторизация успешна!!!")
-        } else {
-          //Error
-          console.error("Пароль не верный!!!")
-        }
-      } else {
-        //Error
-        console.error("Пользователь не найден!!!")
-      }
+  logIn = (user) => {
+    this.setState({
+      ...this.state,
+      activeUser: user,
+      login: true
     })
   }
   
-  qwe= () =>{
-    const  users = [...this.state.users]
-    users[0].name = "Maxim"
+  logOut = () => {
     this.setState({
-        ...this.state,
-        users
+      ...this.state,
+      activeUser: {},
+      login: false
     })
   }
-
-
 
   render() {
     return(
       <div className='App'>
-      <Login 
-        users={this.state.users}
-      />
-      {
-        this.state.users.map((user, index) => {
-          return(
-            <div>
-              <User 
-                key={index}
-                name={user.name}
-                accessRights={user.accessRights}
-                qwe={this.qwe}
-              />
+        {
+          this.state.login
+            ? <div>
+                <User user={this.state.activeUser}/>
+                <button onClick={this.logOut}>Выход</button> 
             </div>
-          )
-        })
-      }
+            : <div>
+                <Login users={this.state.users} logIn={this.logIn}/>
+            </div>
+        }
       </div>
     )
   }
 }
-
 
 export default App;

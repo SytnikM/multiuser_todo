@@ -4,12 +4,11 @@ const User = (props) => {
     return(
         <div>
             <h3>
-                {props.name}
+                {props.user.name}
             </h3>
             <p>
-                {props.accessRights}
+                {props.user.accessRights}
             </p>
-            <button onClick={props.qwe}>ReNAme</button>
         </div>
     )
 }
