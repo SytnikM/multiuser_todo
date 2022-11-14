@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
-import { ReactDOM } from 'react';
 import './App.css';
 import Login from './Components/Login';
+import Register from './Components/Register';
 import User from './Components/User';
 
 class App extends Component {
@@ -38,6 +38,17 @@ class App extends Component {
     })
   }
 
+  register = (user) => {
+    const userList = this.state.users;
+    userList.push(user);
+    this.setState({
+      ...this.state,
+      users: userList,
+      activeUser: user,
+      login: true
+    })
+  }
+
   render() {
     return(
       <div className='App'>
@@ -49,6 +60,7 @@ class App extends Component {
             </div>
             : <div>
                 <Login users={this.state.users} logIn={this.logIn}/>
+                <Register register={this.register}/>
             </div>
         }
       </div>

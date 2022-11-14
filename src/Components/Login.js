@@ -18,6 +18,7 @@ export default class Login extends React.Component {
     }
     // Запись введеного пароля для входа
     onChangePass = (event) => {
+        // eslint-disable-next-line no-useless-escape
         let regexp = /[^a-zа-яё,._\-\/=\!\?0-9\s]/gi;
         let value =event.target.value;
         value = value.replace(/^\s/,'');
@@ -31,6 +32,7 @@ export default class Login extends React.Component {
     }
     // Проверка введенных данных
     login = () => {
+        // eslint-disable-next-line array-callback-return
         this.state.users.map((user)=>{
             if(user.name === this.state.activeUserName){
                 if(user.password === this.state.activeUserPass){
@@ -59,11 +61,6 @@ export default class Login extends React.Component {
         return(
             <div>
                 <div className="Login">
-                    {
-                        this.state.error
-                            ? <h3>{this.state.error}</h3>
-                            : null
-                    }
                     <select 
                         className="username"
                         placeholder="Выберите пользователя"
@@ -81,12 +78,15 @@ export default class Login extends React.Component {
                         type="password"
                         placeholder="Пароль"
                         onChange={this.onChangePass}
-                        // onChange={this.inputCheck}
-                        onInput={this.inputCheck}
                         maxLength={20}
                         onKeyDown={this.keyPress}
                     />
                     <button onClick={this.login}>Войти</button>
+                    {
+                        this.state.error
+                            ? <h3>{this.state.error}</h3>
+                            : null
+                    }
                 </div>
         </div>
         )
